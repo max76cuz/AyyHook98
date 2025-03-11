@@ -1,137 +1,83 @@
-﻿//using shitty paster's dll
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Net;
 using System.IO;
 
-namespace Ayy_Hook
-//Open brackets
+namespace DrillV1
 {
     public partial class Form2 : MetroFramework.Forms.MetroForm
-    //Open brackets
     {
-        //This is the load, its auto generated but visual studio and tbh theres really nothing much i can explain
         public Form2()
-        //Open brackets
         {
             InitializeComponent();
-        //Close brackets
         }
 
         private void Form2_Load(object sender, EventArgs e)
-        //Open brackets
         {
-            //Ok so lemme quickly summaraze what this right here does
-            //Basicly it adds the cheats to the drop down (when selecting)
-
-            //This adds The first cheat 
-            metroComboBox1.Items.Add("CSGO #1");
-
-            //And this adds the second one
-            metroComboBox1.Items.Add("CSGO #2");
-
-            //To add more, simply paste another one of that ^ and add another selectedindex and ur good to go (remember to change download link)
-
-        //Close brackets
+            metroComboBox1.Items.Add("RUST #1");
+            metroComboBox1.Items.Add("RUST #2");
         }
 
-        //If you dont know what this means \/ i will hunt you down and shoot you! (Hint: IT SAYS FUCKING CLICK!)
         private void metroButton1_Click(object sender, EventArgs e)
-        //Open brackets
         {
-            if (metroComboBox1.SelectedIndex == -1) // If u didnt select anything, its counted as -1 so we just give a error msg
-            //Open brackets
+            if (metroComboBox1.SelectedIndex == -1)
             {
-                //Since you didnt select anything, it gives you a error message saying "You must select a cheat to inject!
                 MetroFramework.MetroMessageBox.Show(this, "You must select a cheat to inject!", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
-            //Close brackets
             }
 
-            if (metroComboBox1.SelectedIndex == 0) //If you selected the first option(which is counted as 0) then execute this code:
-            //Open brackets
+            if (metroComboBox1.SelectedIndex == 0)
             {
-                string path = Settings.Pathy; //Set a string path to ur 
-                if (!Directory.Exists(path)) //IF directory where your dll is supposed to download doesnt exist, execute code in brackets
-                //Open brackets
+                string path = Settings.Pathy;
+                if (!Directory.Exists(path))
                 {
-                    DirectoryInfo di = Directory.CreateDirectory(path); //Make the folder (Cause apperently it doesnt exist)
-                    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden; //Make the folder hidden
-                //Close brackets
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 }
-                WebClient wb = new WebClient(); //The thing that connects to the internet / makes the connection
-                wb.Headers.Add("User-Agent", Settings.UserAgentString); //Useragent is what the server sees you connecting with
-                wb.DownloadFile(Settings.CSGO, Settings.Save); //Downloads the dll from settings.cs file and string called CSGO
+                WebClient wb = new WebClient();
+                wb.Headers.Add("User-Agent", Settings.UserAgentString);
+                wb.DownloadFile(Settings.RUST1, Settings.Save);
 
-                var Form3 = new Form3(); //Makes a variable called form2 which equals to open form3
-                Form3.Closed += (s, args) => this.Close(); //Check form1 for explanation
-                this.Hide(); //This closes/hides this form
-                Form3.Show(); //This shows form3
-            //Close brackets
+                var Form3 = new Form3();
+                Form3.Closed += (s, args) => this.Close();
+                this.Hide();
+                Form3.Show();
             }
 
-            if (metroComboBox1.SelectedIndex == 1) //If you selected the second option(which is counted as 1) then execute this code
-            //Open brackets
+            if (metroComboBox1.SelectedIndex == 1)
             {
-                string path = Settings.Pathy; //Set a string path to ur 
-                if (!Directory.Exists(path)) //IF directory where your dll is supposed to download doesnt exist, execute code in brackets
-                //Open brackets
+                string path = Settings.Pathy;
+                if (!Directory.Exists(path))
                 {
-                    DirectoryInfo di = Directory.CreateDirectory(path); //Make the folder (Cause apperently it doesnt exist)
-                    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden; //Make the folder hidden
-                //Close brackets
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 }
-                WebClient wb = new WebClient(); //The thing that connects to the internet / makes the connection
-                wb.Headers.Add("User-Agent", Settings.UserAgentString); //Useragent is what the server sees you connecting with
-                wb.DownloadFile(Settings.CSGOI, Settings.Save); //Downloads the dll from settings.cs file and string called CSGOI <--- Notice how its different
+                WebClient wb = new WebClient();
+                wb.Headers.Add("User-Agent", Settings.UserAgentString);
+                wb.DownloadFile(Settings.RUST2, Settings.Save);
 
-                var Form3 = new Form3(); //Makes a variable called form2 which equals to open form3
-                Form3.Closed += (s, args) => this.Close(); //Check form1 for explanation
-                this.Hide(); //This closes/hides this form
-                Form3.Show(); //This shows form3
-            //Close brackets
+                var Form3 = new Form3();
+                Form3.Closed += (s, args) => this.Close();
+                this.Hide();
+                Form3.Show();
             }
-        //Close brackets
         }
 
         private void metroComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        //Open brackets
         {
-            if (metroComboBox1.SelectedIndex == 0) //If the first tab was selected:
-            //Open brackets
+            if (metroComboBox1.SelectedIndex == 0)
             {
-                Process[] pname = Process.GetProcessesByName("csgo"); //Get the csgo proccess 
-                if (pname.Length == 0) //Check if pid is equal to 0
-                    //If it is = to 0, game isnt running so display error msg "CSGO Game Process Not Running"
-                    MetroFramework.MetroMessageBox.Show(this, "CSGO Game Process Not Running", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
-            //Close brackets
+                Process[] pname = Process.GetProcessesByName("rust");
+                if (pname.Length == 0)
+                    MetroFramework.MetroMessageBox.Show(this, "RUST Game Process Not Running", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
             }
 
-            if (metroComboBox1.SelectedIndex == 1)//If the second tab was selected:
-            //Open brackets
+            if (metroComboBox1.SelectedIndex == 1)
             {
-                Process[] pname = Process.GetProcessesByName("csgo"); //Get the csgo proccess 
-                if (pname.Length == 0) //Check if pid is equal to 0
-                    //If it is = to 0, game isnt running so display error msg "CSGO Game Process Not Running"
-                    MetroFramework.MetroMessageBox.Show(this, "CSGO Game Process Not Running", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
-            //Close brackets
+                Process[] pname = Process.GetProcessesByName("rust");
+                if (pname.Length == 0)
+                    MetroFramework.MetroMessageBox.Show(this, "RUST Game Process Not Running", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
             }
-        //Close brackets
         }
-    //Close brackets
     }
-//Close brackets
 }
-
-//-----------------------------------------------------
-// Coded by /id/Roshly! Ayyhook loader source
-// https://github.com/Roshly/AyyHook-Loader
-// Note to the person using this, removing this
-// text is in violation of the license you agreed
-// to by downloading. Only you can see this so what
-// does it matter anyways.
-// Copyright © Roshly 2018
-// Licensed under a MIT license
-// Read the terms of the license here
-// https://github.com/Roshly/AyyHook-Loader/blob/master/LICENSE
-//-----------------------------------------------------
