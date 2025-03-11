@@ -1,163 +1,130 @@
-﻿//Things you use go here!
-//Condoms dont
+//im not exactly sure what it does but it makes the code work
+//Comment by Ca3sper "be glad I aint usin your bitch too cause we both can see the code and know i aint usin no condoms"
 using System;
-using HWIDGrabber;
+using System.Linq;
 using System.Windows.Forms;
+using ManualMapInjection.Injection;
+using System.IO;
+using System.Diagnostics;
+using System.Threading;
 
-//Just something to point out (even tho u dont see it) it took me more time to center the "//Close brackets" then to add them
 
-//Also... Why do i get the feeling that theres more comments then actuall code? :thinking:
-
-namespace Ayy_Hook
+namespace DrillV1
 //Open brackets
 {
-    public partial class Form1 : MetroFramework.Forms.MetroForm
+    public partial class Form3 : MetroFramework.Forms.MetroForm
     //Open brackets
     {
-        //Save a phrase hwid so it can hold a string or letters and numbers in it
-        string hwid;
+        //This right here is a bool which is a string named "rust" that holds eaither a true or false
+        bool rust;
 
         //This is the load, its auto generated but visual studio and tbh theres really nothing much i can explain
-        public Form1()
+        public Form3()
         //Open brackets
         {
             InitializeComponent();
         //Close brackets
         }
 
-        //Basicly as soon as you enter form1 it runs this code first then the rest
-        private void Form1_Load(object sender, EventArgs e)
+        //Basicly as soon as you enter form3 it runs this code first then the rest
+        private void Form3_Load(object sender, EventArgs e)
+
         //Open brackets
         {
-            //Basicly make hwid your hwid without the long string (which is found after the equals sign)
-            hwid = HWDI.GetMachineGuid();
+            //Thread.Sleep means it will take a quick nap
+            //I SWEAR TO FUCKING GOD IF YOU ASK ME WTF IS A NAP I WILL BAN YOU FROM THE DISCORD
+            //Note: every 1000 = 1 second
+            Thread.Sleep(200);
 
+            //var means variable so in this case it makes a variable called name and name equals the text rust
+            var name = "rust";
 
-            if (Properties.Settings.Default.Checked == true) //If the checkbox was set true from last launch:
+            //Injection shit using the name var to find proccess
+            var target = Process.GetProcessesByName(name).FirstOrDefault();
+            //An if statement to check if the dll for ur paste downloaded or not.
+            if (File.Exists(Settings.Save))
             //Open brackets
             {
-                metroTextBox1.Text = Properties.Settings.Default.Username; //Fill-in last username
-                metroTextBox2.Text = Properties.Settings.Default.Password; //Fill-in last username
-                metroCheckBox1.Checked = Properties.Settings.Default.Checked; //Check the checkbox
-            //Close brackets
-            }
-        //Close brackets
-        }
-
-        //As i was adding comments i relized that i couldve named the buttons and labels what they are supposed to be
-        //Instead of leaving it as metro label but... Nah... Wayyyyyyy tooooo much work :P
-        private void metroButton1_Click(object sender, EventArgs e) //What happenes after you click the login button
-        //Open brackets
-        {
-            Properties.Settings.Default.Username = metroTextBox1.Text; //Saves your username
-            Properties.Settings.Default.Password = metroTextBox2.Text; //Saves your password
-            Properties.Settings.Default.Checked = metroCheckBox1.Checked; //Saves the checkbox current state (checked or not)
-            Properties.Settings.Default.Save(); //Execute the saving
-
-            //This is where the program goes onto yout site with the check.php file in order to check authentication
-            //Note: If your woundering where the links are, they are in settings.cs which is shown below as Settings.Auth
-            webBrowser1.Navigate(Settings.Auth + "?username=" + metroTextBox1.Text + " & password=" + metroTextBox2.Text + "&hwid=" + hwid);
-        //Close brackets
-        }
-
-        //This part is the response you get after you visit the site
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        //Open brackets
-        {
-            //So if the site responds with p1, it means that your password was correct and it can move on, otherwise it will go to the else statement
-            if (webBrowser1.DocumentText.Contains("p1"))
-            //Open brackets
-            {
-                //Next we check for your group! As long as you have one of these groups, your all good to go, otherwise it will go to the else statement
-                //Note: I said else statement and not if else, they are 2 completly different things 
-                //Also the || means and so it will check for all of these groups at once
-                if (webBrowser1.DocumentText.Contains("g4") || webBrowser1.DocumentText.Contains("g6") || webBrowser1.DocumentText.Contains("g8"))
-                //Open brackets
+                //Check if file actually downloaded cause most people were complaining about
+                //How they see the file, post a pic and i see a 0kb file like wut???
+                if (new FileInfo(Settings.Save).Length != 0)
+                //Open brackets (Almost missed this one)
                 {
-                    //And now we have gotten to the final part (for checks).
-                    //This tells the program if your hwid is correct or not.
-                    //h1 means hwid is correct!
-                    if (webBrowser1.DocumentText.Contains("h1"))
-                    //Open brackets
-                    {
-                        //All this does is just closes this form and opens form2. so lemme break it down:
-                        //Makes a variable called form2 which equals to open form2
-                        var form2 = new Form2();
-                        //Overall its just a tricky way to not have to declare an entire function (event handler) 
-                        //outside of the current one that handles Form2.Closed event. – KDecker 
-                        //Also note: I didnt really know how to explain this but this guy did a good job!
-                        form2.Closed += (s, args) => this.Close();
-                        //This shows form2
-                        form2.Show();
-                        //This closes/hides this form
-                        this.Hide();
-                    //Close brackets
-                    }
-                    //This tells the program that your hwid is incorrect
-                    else if (webBrowser1.DocumentText.Contains("h2"))
-                    //Open brackets
-                    {
-                        //So it gives a error message "Error: Incorrect HWID"
-                        MetroFramework.MetroMessageBox.Show(this, "Error : Incorrect HWID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
-                    //Close brackets
-                    }
-                    //This tells the program that your a new user and your hwid has just been set
-                    else if (webBrowser1.DocumentText.Contains("h3"))
-                    //Open brackets
-                    {
-                        //So it gives a message saying "Note: Setting new HWID"
-                        MetroFramework.MetroMessageBox.Show(this, "Note: Setting new HWID.", "HWID Reset", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
-                    //Close brackets
-                    }
+
+                    //If it did download, it sets the bool rust eaither true or false
+                    //In this case (if it did successfully download the dll) it sets it to true
+                    rust = true;
                 //Close brackets
                 }
-                //Now... Since your group didnt match up, we end up here... at this other... else... statement... (what am i doing with my life *sigh*)
+
+                //Literally as the statment says, it means else / or else
                 else
+
                 //Open brackets
                 {
-                    //So it gives a error message saying "Error : Incorrect group"
-                    MetroFramework.MetroMessageBox.Show(this, "Error : Incorrect group.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
+                    //But in this case (if it did NOT successfully download the dll) it sets it to false
+                    rust = false;
                 //Close brackets
                 }
             //Close brackets
             }
-            //And if all else fails, we end up here
-            else
+        //Close brackets
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        //Open brackets
+        {
+            if (rust) //If your shitty paste downloaded, then \/
             //Open brackets
             {
-                //And so it FINALLY gives us this error message saying "Error : Incorrect username or password."
-                MetroFramework.MetroMessageBox.Show(this, "Error : Incorrect username or password.", "HWID Reset", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
+                //Sets the variable name equal to rust (ment for injection)
+                var name = "rust";
+                //Gets the proccess info (rust) to inject to
+                var target = Process.GetProcessesByName(name).FirstOrDefault();
+                //If proccess doesnt exist
+                if (target != null)
+                //Open brackets
+                {
+                    //More variables but this one is for the dll path
+                    var path = (Settings.Save);
+                    //And this one is to read the files bytes in order to inject
+                    var file = File.ReadAllBytes(path);
+                                               //^^^^// Just pointing out the path var from above
+
+                    Thread.Sleep(1000);//Read lines 30-32
+                    var injector = new ManualMapInjector(target) { AsyncInjection = true }; //Basicly all paramaters needed in injection as a variable called injector
+                    //The actual injection line but Thaisen added this to a label and idk why a label but i guess it just is
+                    label1.Text = $"hmodule = 0x{injector.Inject(file).ToInt64():x8}";
+                    label1.Text = "Injection complete"; //Thaisen added this line for some reason :thinking:
+                    timer1.Stop(); //Stops timer1
+                    timer2.Start(); //Starts timer2 (so all timer2 code gets activated)
+                //Close brackets
+                }
+            //Close brackets
+            }
+            
+            else if (!rust) //If you shitty paste didnt download successfully 
+            //Open brackets
+            {
+                //A error message that says "Error Downloading dll!"
+                MetroFramework.MetroMessageBox.Show(this, "Error Downloading dll!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 100);
+                Application.Exit(); //Closes the Loader
             //Close brackets
             }
         //Close brackets
         }
 
-        private void metroTextBox1_KeyDown(object sender, KeyEventArgs e) //When you press a curtain key down, execute code:
+        private void timer2_Tick(object sender, EventArgs e)
         //Open brackets
         {
-            if (e.KeyCode == Keys.Enter) //If you pressed enter in the text box:
-            //Open brackets
-            {
-                metroButton1_Click(this, new EventArgs()); //Activate the login button (aka execute login button code)
-            //Close brackets
-            }
+            File.Delete(Settings.Save); //Deletes the dll after injection
+            Application.Exit(); //Closes the Loader
+            timer2.Stop(); //Stops the timer (aka the thing that was enabled to trigger this code)
         //Close brackets
         }
-
-        private void metroTextBox2_KeyDown(object sender, KeyEventArgs e) //When you press a curtain key down, execute code:
-        //Open brackets
-        {
-            if (e.KeyCode == Keys.Enter) //If you pressed enter in the text box:
-            //Open brackets
-            {
-                metroButton1_Click(this, new EventArgs()); //Activate the login button (aka execute login button code)
-            //Close brackets
-            }
-        //Close brackets
-        }
-        //Close brackets
+    //Close brackets
     }
-//Close brackets
+//Close brackets (Final one, Phewf!)
 }
 
 //-----------------------------------------------------
