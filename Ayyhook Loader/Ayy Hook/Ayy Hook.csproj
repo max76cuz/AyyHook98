@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{32654496-3131-46C0-B2F8-A2A0BCEF1489}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Ayy_Hook</RootNamespace>
-    <AssemblyName>Ayy Hook</AssemblyName>
+    <RootNamespace>DrillV1</RootNamespace>
+    <AssemblyName>DrillV1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
