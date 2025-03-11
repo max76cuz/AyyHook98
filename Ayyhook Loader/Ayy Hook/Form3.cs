@@ -1,4 +1,4 @@
-﻿//im not exactly sure what it does but it makes the code work
+//im not exactly sure what it does but it makes the code work
 //Comment by Ca3sper "be glad I aint usin your bitch too cause we both can see the code and know i aint usin no condoms"
 using System;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Threading;
 
 
-namespace Ayy_Hook
+namespace DrillV1
 //Open brackets
 {
     public partial class Form3 : MetroFramework.Forms.MetroForm
@@ -36,7 +36,7 @@ namespace Ayy_Hook
             //Note: every 1000 = 1 second
             Thread.Sleep(200);
 
-            //var means variable so in this case it makes a variable called name and name equals the text csgo
+            //var means variable so in this case it makes a variable called name and name equals the text rust
             var name = "rust";
 
             //Injection shit using the name var to find proccess
@@ -77,9 +77,9 @@ namespace Ayy_Hook
             if (rust) //If your shitty paste downloaded, then \/
             //Open brackets
             {
-                //Sets the variable name equal to csgo (ment for injection)
+                //Sets the variable name equal to rust (ment for injection)
                 var name = "rust";
-                //Gets the proccess info (csgo) to inject to
+                //Gets the proccess info (rust) to inject to
                 var target = Process.GetProcessesByName(name).FirstOrDefault();
                 //If proccess doesnt exist
                 if (target != null)
