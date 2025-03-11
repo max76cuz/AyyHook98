@@ -15,8 +15,8 @@ namespace Ayy_Hook
     public partial class Form3 : MetroFramework.Forms.MetroForm
     //Open brackets
     {
-        //This right here is a bool which is a string named "csgo" that holds eaither a true or false
-        bool csgo;
+        //This right here is a bool which is a string named "rust" that holds eaither a true or false
+        bool rust;
 
         //This is the load, its auto generated but visual studio and tbh theres really nothing much i can explain
         public Form3()
@@ -37,7 +37,7 @@ namespace Ayy_Hook
             Thread.Sleep(200);
 
             //var means variable so in this case it makes a variable called name and name equals the text csgo
-            var name = "csgo";
+            var name = "rust";
 
             //Injection shit using the name var to find proccess
             var target = Process.GetProcessesByName(name).FirstOrDefault();
@@ -51,9 +51,9 @@ namespace Ayy_Hook
                 //Open brackets (Almost missed this one)
                 {
 
-                    //If it did download, it sets the bool csgo eaither true or false
+                    //If it did download, it sets the bool rust eaither true or false
                     //In this case (if it did successfully download the dll) it sets it to true
-                    csgo = true;
+                    rust = true;
                 //Close brackets
                 }
 
@@ -63,7 +63,7 @@ namespace Ayy_Hook
                 //Open brackets
                 {
                     //But in this case (if it did NOT successfully download the dll) it sets it to false
-                    csgo = false;
+                    rust = false;
                 //Close brackets
                 }
             //Close brackets
@@ -74,11 +74,11 @@ namespace Ayy_Hook
         private void timer1_Tick(object sender, EventArgs e)
         //Open brackets
         {
-            if (csgo) //If your shitty paste downloaded, then \/
+            if (rust) //If your shitty paste downloaded, then \/
             //Open brackets
             {
                 //Sets the variable name equal to csgo (ment for injection)
-                var name = "csgo";
+                var name = "rust";
                 //Gets the proccess info (csgo) to inject to
                 var target = Process.GetProcessesByName(name).FirstOrDefault();
                 //If proccess doesnt exist
@@ -103,7 +103,7 @@ namespace Ayy_Hook
             //Close brackets
             }
             
-            else if (!csgo) //If you shitty paste didnt download successfully 
+            else if (!rust) //If you shitty paste didnt download successfully 
             //Open brackets
             {
                 //A error message that says "Error Downloading dll!"
